@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #sai{
+        padding: 30px;
+        margin-left: 15%;
+        width: 70%;
+        background-color: beige;
+    border: 5px ridge black;
+    }
+</style>
+<body>
+    <input type="text" name="" id="s">
+    <button onclick="ser()">search</button>
+    <h3 style="color: red;">Use all small char</h3>
+    <div id="data">
+       
+        
+      
+    </div>
+</body>
+<script>
+var data=[]
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+  .then(response => response.json())
+  .then(function(allpokemon){
+     
+  allpokemon.results.forEach(function(pokemon){
+      data.push(pokemon)
+     
+  })
+ })
+ console.log(data)
+    function ser(){
+    var value=document.getElementById("s").value
+    data.forEach((e)=>{
+        if(e.name==value){
+            console.log("CHEHKE")
+            sai(e.url)
+        }
+    })
+    
+    }
+function sai(x){
+    var j =fetch(x)
+    j.then((x)=>x.json()).then(function(x){
+        var m=x.moves
+        str=''
+        console.log(m)
+        m.forEach((e)=>{str+=e.move.name+","})
+        console.log(str)
+        var div=document.createElement("div")
+        div.id="sai"
+        div.innerHTML=`  <h1> id:${x.id}</h1>
+        <h1> Name:${x.name}</h1>
+        <h1> Hight:${x.height}</h1>
+        <h1>Weight:${x.weight}</h1>
+        <h3> move::${str}</h3>`
+        document.getElementById("data").append(div)
+ 
+ })
+}
+</script>
+</html>

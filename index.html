@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon</title>
+</head>
+<style>
+    li{
+        width: 20%;
+        margin-left: 10%;
+        font-size: 38px;
+        border: 2px black solid;
+    }
+</style>
+<body>
+    <div id="sai"></div>
+    <ol id="s">
+
+    </ol>
+</body>
+<script>
+    if(JSON.parse(localStorage.getItem("data"))==null){
+        console.log("fetch requset")
+    var data= fetch('https://pokeapi.co/api/v2/pokemon/')
+    data.then((r)=>r.json()).then((r)=>{
+        var data=r.results
+    localStorage.setItem('data',JSON.stringify(data))
+        data.forEach(e => {
+            li = document.createElement('li')
+            li.innerText = e.name
+            document.getElementById("s").append(li)
+        });
+    })}else{
+        console.log('localStorage')
+        data=JSON.parse(localStorage.getItem("data"))
+        data.forEach(e => {
+            li = document.createElement('li')
+            li.innerText = e.name
+            document.getElementById("s").append(li)
+        });
+    }
+</script>
+</html>
